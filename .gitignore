@@ -2,3 +2,4 @@ model_ckpt
 asccl.zip
 *.pth
 *.pkl
+asccl/backbone.pth
