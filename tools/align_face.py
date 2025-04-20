@@ -63,7 +63,6 @@ if __name__ == "__main__":
         for emotion in emotion_list:
             emotion_path = os.path.join(root, vid, "img", emotion)
             path_sub = sorted(os.listdir(emotion_path))
-
             for idx, sub in enumerate(path_sub):
                 emotion_sub_path = os.path.join(emotion_path, sub)
                 save_path = emotion_sub_path.replace("img", "align_img")

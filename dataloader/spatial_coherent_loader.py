@@ -14,16 +14,15 @@ from torchvision import transforms
 import torch.nn.functional as F
 
 import sys
-sys.path.append("/data2/JM/code/NED-main_ASCCL")
-from visual_correlated_modules.model_landmarks import Temporal_Context_Loss
+sys.path.append("/data2/JM/code/STCCL")
 
 
-class MEADPairDataloader(Dataset):
+class SpatialDataloader(Dataset):
     def __init__(self, mode="train") -> None:
-        super(MEADPairDataloader).__init__()
+        super(SpatialDataloader).__init__()
         self.size = 224
-        self.root = "/data3/JM/MEAD"
-        with open("/data2/JM/code/NED-main_ASCCL/visual_correlated_modules/aligned_path36.json", "r") as json_file:
+        self.root = "/data3/JM/data/MEAD"
+        with open("/data2/JM/code/STCCL/files/aligned_path36.json", "r") as json_file:
             self.data_file = json.load(json_file)
         if mode == "train":
             self.vid_list = sorted(list(self.data_file.keys()))
@@ -162,15 +161,15 @@ class MEADPairDataloader(Dataset):
         
 
 
-if __name__ == "__main__":
-    data = MEADPairDataloader("train")
-    model = Temporal_Context_Loss().cuda()
-    state_dict = torch.load("visual_correlated_modules/model_ckpt/90-512.pth")
-    model.load_state_dict(state_dict)
-    dataloader = DataLoader(data, batch_size=2, num_workers=2, shuffle=False)
-    for data in dataloader:
-        pass
-        # source = data["source_img"].cuda()
-        # target = data["target_img"].cuda()
-        # loss, pos, neg = model(source, target)
-        # print(loss.item(), pos, neg)
+# if __name__ == "__main__":
+#     data = MEADPairDataloader("train")
+#     model = Temporal_Context_Loss().cuda()
+#     state_dict = torch.load("visual_correlated_modules/model_ckpt/90-512.pth")
+#     model.load_state_dict(state_dict)
+#     dataloader = DataLoader(data, batch_size=2, num_workers=2, shuffle=False)
+#     for data in dataloader:
+#         pass
+#         # source = data["source_img"].cuda()
+#         # target = data["target_img"].cuda()
+#         # loss, pos, neg = model(source, target)
+#         # print(loss.item(), pos, neg)

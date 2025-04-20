@@ -3,8 +3,8 @@ from torch.utils.data import DataLoader
 import sys
 import os
 sys.path.append(os.getcwd())
-from dataloader import MEADPairDataloader
-from visual_correlated_modules.model_landmarks import Temporal_Context_Loss
+from dataloader.spatial_coherent_loader import SpatialDataloader
+from model.spatial_coherent_model import Spatial_Coherent_Correlation_Learning
 import random
 import numpy as np
 from torch.utils.tensorboard import SummaryWriter
@@ -24,14 +24,14 @@ def fixed_seed():
 
 if __name__ == "__main__":
     fixed_seed()
-    log_dir = "/data2/JM/code/NED-main/visual_correlated_modules/logs_all/128_baseline"
+    log_dir = "/data2/JM/code/STCCL/baseline"
     os.makedirs(log_dir, exist_ok=True)
     
     writer = SummaryWriter(log_dir=log_dir)
-    train_data = MEADPairDataloader("train")
-    test_data = MEADPairDataloader("test")
-    model = Temporal_Context_Loss().cuda()
-    model.load_state_dict(torch.load("/data2/JM/code/NED-main_ASCCL/visual_correlated_modules/backbone.pth"), strict=False)
+    train_data = SpatialDataloader("train")
+    test_data = SpatialDataloader("test")
+    model = Spatial_Coherent_Correlation_Learning().cuda()
+    model.resnet50.load_state_dict(torch.load("asccl/backbone.pth"), strict=False)
     train_dataloader = DataLoader(train_data, batch_size=8, shuffle=True, num_workers=64)
     test_dataloader = DataLoader(test_data, batch_size=32, shuffle=False, num_workers=8)
     
@@ -47,13 +47,11 @@ if __name__ == "__main__":
         pos_all = 0.0
         neg_all = 0.0
         iter_epoch = 0
-        # with open(f"/data2/JM/code/NED-main/visual_correlated_modules/train_txt/{os.path.basename(log_dir)}.txt", "a") as file:
-        #     file.write(f"<============================train epoch: {epoch}================================>" + "\n")
+
         for batch in train_dataloader:
             neutral_img = batch['source_img'].cuda()
             emotion_img = batch['target_img'].cuda()
-            # neutral_landmarks = np.array(batch["source_landmarks"])
-            # emotion_landmarks = np.array(batch["target_landmarks"])
+
             optimizer.zero_grad()
             loss, pos, neg = model(neutral_img, emotion_img)
             loss.backward()
@@ -74,7 +72,7 @@ if __name__ == "__main__":
         writer.add_scalar(f"train_epoch/neg_epoch", neg_all/data_len_train, epoch)
 
         if epoch % 10 == 0:
-            torch.save(model.state_dict(), f'/data2/JM/code/NED-main/visual_correlated_modules/model_ckpt/{epoch}-128_landmarks_align.pth')
+            torch.save(model.state_dict(), f'/data2/JM/code/STCCL/model_ckpt/{epoch}-128_landmarks_align.pth')
             
         model.eval()
         test_loss = 0.0
@@ -84,10 +82,8 @@ if __name__ == "__main__":
             for batch in test_dataloader:
                 neutral_img = batch['source_img'].cuda()
                 emotion_img = batch['target_img'].cuda()
-                # neutral_landmarks = np.array(batch["source_landmarks"])
-                # emotion_landmarks = np.array(batch["target_landmarks"])
+
                 loss, pos, neg = model(neutral_img, emotion_img)
-                # loss, pos, neg = model(neutral_img, emotion_img)
                 loss_num = loss.item()
                 test_loss += loss_num
                 test_pos += pos
