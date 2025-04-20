@@ -1,6 +1,8 @@
+# 忽略所有 .pth 文件
+*.pth
+
+# 忽略特定目录和文件
 model_ckpt
 asccl.zip
-*.pth
-*.pkl
 asccl/backbone.pth
 pretrain_model
