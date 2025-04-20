@@ -3,3 +3,4 @@ asccl.zip
 *.pth
 *.pkl
 asccl/backbone.pth
+pretrain_model
