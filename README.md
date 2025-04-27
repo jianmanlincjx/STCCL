@@ -11,6 +11,32 @@ Here are the quantitative results of integrating STCCL into other methods.
 
 ![Visual Results](RAVDESS.png)
 
+Here are some video results of our approach:
+## Video Results
+
+<video src="video_result/Actor_01_ASCCL_plus_video_sad.mp4" controls width="400"></video>
+<video src="video_result/Actor_03_ASCCL_plus_video_surprised.mp4" controls width="400"></video>
+<video src="video_result/Actor_04_ASCCL_plus_video_fear.mp4" controls width="400"></video>
+<video src="video_result/Actor_05_ASCCL_plus_video_fear.mp4" controls width="400"></video>
+<video src="video_result/Actor_06_ASCCL_plus_video_angry.mp4" controls width="400"></video>
+<video src="video_result/M003_source_angry_030.mp4" controls width="400"></video>
+<video src="video_result/M003_source_sad_017.mp4" controls width="400"></video>
+<video src="video_result/M003_source_sad_033.mp4" controls width="400"></video>
+<video src="video_result/M012_source_angry_029.mp4" controls width="400"></video>
+<video src="video_result/M012_source_disgusted_028.mp4" controls width="400"></video>
+<video src="video_result/M012_source_happy_037.mp4" controls width="400"></video>
+<video src="video_result/M012_source_neutral_040.mp4" controls width="400"></video>
+<video src="video_result/M030_source_angry_037.mp4" controls width="400"></video>
+<video src="video_result/M030_source_disgusted_030.mp4" controls width="400"></video>
+<video src="video_result/W015_source_disgusted_029.mp4" controls width="400"></video>
+<video src="video_result/W015_source_happy_037.mp4" controls width="400"></video>
+<video src="video_result/W015_source_happy_039.mp4" controls width="400"></video>
+<video src="video_result/W015_source_sad_028.mp4" controls width="400"></video>
+<video src="video_result/W015_source_sad_030.mp4" controls width="400"></video>
+<video src="video_result/W015_source_sad_037.mp4" controls width="400"></video>
+<video src="video_result/W029_source_fear_077.mp4" controls width="400"></video>
+<video src="video_result/W029_source_sad_003.mp4" controls width="400"></video>
+
 ## Train Pipeline
 
 ### Data Processing
