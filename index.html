@@ -50,8 +50,14 @@
     }
     img {
       display: block;
-      margin: 0 auto;
+      margin: 10px auto;
       max-width: 100%;
+    }
+    .caption {
+      font-size: 14px;
+      color: #444;
+      text-align: center;
+      margin-top: 5px;
     }
   </style>
 </head>
@@ -60,7 +66,7 @@
   <h1>Learning Spatial-Temporal Coherent Correlations for Speech-Preserving Facial Expression Manipulation</h1>
 
   <div class="authors">
-    Tianshui Chen<sup>1</sup>, Jianman lin<sup>2</sup>, Zhijiang Yang<sup>1</sup>, Chunmei Qing<sup>2</sup>, Liang Lin<sup>3</sup><br>
+    Tianshui Chen<sup>1</sup>, Jianman Lin<sup>2</sup>, Zhijiang Yang<sup>1</sup>, Chunmei Qing<sup>2</sup>, Liang Lin<sup>3</sup><br>
     <sup>1</sup>Guangdong University of Technology, <sup>2</sup>South China University of Technology, <sup>3</sup>Sun Yat-sen University
   </div>
 
@@ -74,13 +80,25 @@
   <div class="section">
     <h2>Abstract</h2>
     <p>
-      [Speech-preserving facial expression manipulation (SPFEM) aims to modify facial emotions while meticulously maintaining the mouth animation associated with spoken content. Current works depend on inaccessible paired training samples for the person, where two aligned frames exhibit the same speech content yet differ in emotional expression, limiting the SPFEM applications in real-world scenarios. In this work, we discover that speakers who convey the same content with different emotions exhibit highly correlated local facial animations in both spatial and temporal spaces, providing valuable supervision for SPFEM. To capitalize on this insight, we propose a novel spatial-tempral coherent correlation learning (STCCL) algorithm, which models the aforementioned correlations as explicit metrics and integrates the metrics to supervise manipulating facial expression and meanwhile better preserving the facial animation of spoken contents. To this end, it first learns a spatial coherent correlation metric, ensuring that the visual correlations of adjacent local regions within an image linked to a specific emotion closely resemble those of corresponding regions in an image linked to a different emotion. Simultaneously, it develops a temporal coherent correlation metric, ensuring that the visual correlations of specific regions across adjacent image frames associated with one emotion are similar to those in the corresponding regions of frames associated with another emotion. Recognizing that visual correlations are not uniform across all regions, we have also crafted a correlation-aware adaptive strategy that prioritizes regions that present greater challenges. During SPFEM model training, we construct the spatial-temporal coherent correlation metric between corresponding local regions of the input and output image frames as addition loss to supervise the generation process. We conduct extensive experiments on variant datasets, and the results demonstrate the effectiveness of the proposed STCCL algorithm.]
+      [Speech-preserving facial expression manipulation (SPFEM) aims to modify facial emotions while meticulously maintaining the mouth animation associated with spoken content... (你的摘要内容略)...]
     </p>
   </div>
 
   <div class="section">
     <h2>Framework</h2>
-    <img src="framework.png" alt="Framework Diagram">
+    <img src="STCCL_NED.png" alt="STCCL Framework">
+    <div class="caption">
+      An overall pipeline of incorporating the proposed STCCL algorithm to the current advanced NED method to supervise generating the intermediate 3DMM meshes and final rendered images. It computes visual correlation of corresponding and non-corresponding local regions between the source and generated images, followed by the correlation-aware adaptive strategy to obtain the final loss to supervise final image generation. An identical process is performed on the source and generated 3DMM meshes to supervise the intermediate 3DMM mesh generation.
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>STCCL Algorithm Overview</h2>
+    <img src="STCCL.png" alt="STCCL Algorithm">
+    <div class="caption">
+      <b>Left half:</b> An illustration of spatial-temporal coherent correlation metric learning based on visual disparity. It retrieves the corresponding adjacent local regions of the input and output images (sequence) as positive samples and the non-corresponding counterparts as negative samples. The process is performed in the feature maps to construct dense positive and negative samples to train the metric.
+      <b>Right half:</b> Similar to the <b>Left half</b>, but based on correlation matrices.
+    </div>
   </div>
 
   <div class="section">
