@@ -2,19 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>STCCL: Spatial-Temporal Cross Correlation Learning</title>
+  <title>Learning Spatial-Temporal Coherent Correlations for Speech-Preserving Facial Expression Manipulation</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      max-width: 900px;
+      max-width: 1000px;
       margin: auto;
       padding: 20px;
       line-height: 1.6;
     }
-    h1, h2 {
-      text-align: center;
-    }
-    .center {
+    h1, h2, h3 {
       text-align: center;
     }
     .authors {
@@ -33,6 +30,9 @@
       background: #007bff;
       color: white;
       border-radius: 5px;
+    }
+    .section {
+      margin-top: 40px;
     }
     .video-row {
       display: flex;
@@ -53,31 +53,28 @@
       margin: 0 auto;
       max-width: 100%;
     }
-    .section {
-      margin-top: 40px;
-    }
   </style>
 </head>
 <body>
 
-  <h1>STCCL: Spatial-Temporal Cross Correlation Learning</h1>
+  <h1>Learning Spatial-Temporal Coherent Correlations for Speech-Preserving Facial Expression Manipulation</h1>
+
   <div class="authors">
-    Your Name<sup>1</sup>, Coauthor A<sup>2</sup>, Coauthor B<sup>1</sup>, ...
-    <br>
-    <sup>1</sup>Institution One, <sup>2</sup>Institution Two
+    Tianshui Chen<sup>1</sup>, Jianman lin<sup>2</sup>, Zhijiang Yang<sup>1</sup>, Chunmei Qing<sup>2</sup>, Liang Lin<sup>3</sup><br>
+    <sup>1</sup>Guangdong University of Technology, <sup>2</sup>South China University of Technology, <sup>3</sup>Sun Yat-sen University
   </div>
 
   <div class="buttons">
-    <a href="link_to_paper.pdf" target="_blank">📄 Paper</a>
-    <a href="https://github.com/your_repo" target="_blank">💻 Code</a>
-    <a href="link_to_models" target="_blank">📦 Models</a>
-    <a href="link_to_video_demo" target="_blank">🎥 Video</a>
+    <a href="#">📄 Paper</a>
+    <a href="#">💻 Code</a>
+    <a href="#">📦 Models</a>
+    <a href="#">🎥 Video</a>
   </div>
 
   <div class="section">
     <h2>Abstract</h2>
     <p>
-      Speech-preserving facial expression manipulation (SPFEM) aims to automatically modify facial emotions while maintaining facial animations of the speech content. Current works depend on inaccessible paired data between expressions and utterances. We propose STCCL, a spatial-temporal cross-correlation learning module that supervises visual correlations for better alignment between facial expression generation and speech-driven regions.
+      [Speech-preserving facial expression manipulation (SPFEM) aims to modify facial emotions while meticulously maintaining the mouth animation associated with spoken content. Current works depend on inaccessible paired training samples for the person, where two aligned frames exhibit the same speech content yet differ in emotional expression, limiting the SPFEM applications in real-world scenarios. In this work, we discover that speakers who convey the same content with different emotions exhibit highly correlated local facial animations in both spatial and temporal spaces, providing valuable supervision for SPFEM. To capitalize on this insight, we propose a novel spatial-tempral coherent correlation learning (STCCL) algorithm, which models the aforementioned correlations as explicit metrics and integrates the metrics to supervise manipulating facial expression and meanwhile better preserving the facial animation of spoken contents. To this end, it first learns a spatial coherent correlation metric, ensuring that the visual correlations of adjacent local regions within an image linked to a specific emotion closely resemble those of corresponding regions in an image linked to a different emotion. Simultaneously, it develops a temporal coherent correlation metric, ensuring that the visual correlations of specific regions across adjacent image frames associated with one emotion are similar to those in the corresponding regions of frames associated with another emotion. Recognizing that visual correlations are not uniform across all regions, we have also crafted a correlation-aware adaptive strategy that prioritizes regions that present greater challenges. During SPFEM model training, we construct the spatial-temporal coherent correlation metric between corresponding local regions of the input and output image frames as addition loss to supervise the generation process. We conduct extensive experiments on variant datasets, and the results demonstrate the effectiveness of the proposed STCCL algorithm.]
     </p>
   </div>
 
@@ -89,32 +86,36 @@
   <div class="section">
     <h2>Video Examples</h2>
 
-    <h3 class="center">Happy</h3>
+    <h3>Happy</h3>
     <div class="video-row">
-      <div class="video-container">
-        <video controls>
-          <source src="happy1.mp4" type="video/mp4">
-        </video>
-      </div>
-      <div class="video-container">
-        <video controls>
-          <source src="happy2.mp4" type="video/mp4">
-        </video>
-      </div>
+      <div class="video-container"><video controls src="video_result/M012_source_happy_037.mp4"></video></div>
+      <div class="video-container"><video controls src="video_result/W015_source_happy_037.mp4"></video></div>
+      <div class="video-container"><video controls src="video_result/W015_source_happy_039.mp4"></video></div>
     </div>
 
-    <h3 class="center">Sad</h3>
+    <h3>Sad</h3>
     <div class="video-row">
-      <div class="video-container">
-        <video controls>
-          <source src="sad1.mp4" type="video/mp4">
-        </video>
-      </div>
-      <div class="video-container">
-        <video controls>
-          <source src="sad2.mp4" type="video/mp4">
-        </video>
-      </div>
+      <div class="video-container"><video controls src="video_result/M003_source_sad_033.mp4"></video></div>
+      <div class="video-container"><video controls src="video_result/W015_source_sad_028.mp4"></video></div>
+      <div class="video-container"><video controls src="video_result/W015_source_sad_037.mp4"></video></div>
+    </div>
+
+    <h3>Angry</h3>
+    <div class="video-row">
+      <div class="video-container"><video controls src="video_result/M012_source_angry_029.mp4"></video></div>
+      <div class="video-container"><video controls src="video_result/M030_source_angry_037.mp4"></video></div>
+    </div>
+
+    <h3>Neutral</h3>
+    <div class="video-row">
+      <div class="video-container"><video controls src="video_result/M012_source_neutral_040.mp4"></video></div>
+    </div>
+
+    <h3>Disgusted</h3>
+    <div class="video-row">
+      <div class="video-container"><video controls src="video_result/M012_source_disgusted_028.mp4"></video></div>
+      <div class="video-container"><video controls src="video_result/M030_source_disgusted_030.mp4"></video></div>
+      <div class="video-container"><video controls src="video_result/M030_source_disgusted_029.mp4"></video></div>
     </div>
   </div>
 
