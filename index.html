@@ -82,7 +82,7 @@
 
   <div class="section">
     <h2>Integrate STCCL into NED</h2>
-    <img src="STCCL.png" alt="STCCL Algorithm" style="max-width: 95%; height: auto;">
+    <img src="STCCL_NED.png" alt="STCCL Framework" style="max-width: 95%; height: auto;">
     <div class="caption">
       An overall pipeline of incorporating the proposed STCCL algorithm to the current advanced NED method to supervise generating the intermediate 3DMM meshes and final rendered images. It computes visual correlation of corresponding and non-corresponding local regions between the source and generated images, followed by the correlation-aware adaptive strategy to obtain the final loss to supervise final image generation. An identical process is performed on the source and generated 3DMM meshes to supervise the intermediate 3DMM mesh generation.
     </div>
@@ -90,7 +90,7 @@
 
   <div class="section">
     <h2>STCCL Algorithm Overview</h2>
-    <img src="STCCL.png" alt="STCCL Algorithm">
+    <img src="STCCL.png" alt="STCCL" style="max-width: 95%; height: auto;">
     <div class="caption">
       <b>Left half:</b> An illustration of spatial-temporal coherent correlation metric learning based on visual disparity. It retrieves the corresponding adjacent local regions of the input and output images (sequence) as positive samples and the non-corresponding counterparts as negative samples. The process is performed in the feature maps to construct dense positive and negative samples to train the metric.
       <b>Right half:</b> Similar to the <b>Left half</b>, but based on correlation matrices.
