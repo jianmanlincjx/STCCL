@@ -34,27 +34,39 @@
     .section {
       margin-top: 40px;
     }
-  .video-row {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    margin-bottom: 20px;
-  }
-  
-  .video-container video {
-    width: 100%;
-    max-width: 720px;  /* 放大视频宽度 */
-    height: auto;
-  }
-  .caption {
-    font-size: 14px;
-    color: #444;
-    text-align: left;
-    margin: 10px auto 20px auto;
-    max-width: 900px;
-    line-height: 1.5;
-  }
-
+    /* 增加一个二级标题样式，用于区分不同模型的视频 */
+    .subsection-title {
+      text-align: center;
+      font-size: 1.2em;
+      margin-top: 30px;
+      margin-bottom: 15px;
+      color: #333;
+      font-weight: bold;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 10px;
+    }
+    .video-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .video-container video {
+      width: 100%;
+      max-width: 720px;  /* 放大视频宽度 */
+      height: auto;
+      border: 1px solid #ddd; /* 给视频加个边框更好看 */
+      border-radius: 4px;
+    }
+    .caption {
+      font-size: 14px;
+      color: #444;
+      text-align: left;
+      margin: 10px auto 20px auto;
+      max-width: 900px;
+      line-height: 1.5;
+    }
   </style>
 </head>
 <body>
@@ -72,8 +84,6 @@
   <a href="https://drive.google.com/file/d/1jovMEXqp7ZCqh4NusY72JH0D_QjrdTxv/view?usp=drive_link" target="_blank">📦 Models</a>
 </div>
 
-
-
   <div class="section">
     <h2>Abstract</h2>
     <p>
@@ -83,7 +93,7 @@
 
   <div class="section">
     <h2>Integrate STCCL into NED</h2>
-    <img src="STCCL_NED.png" alt="STCCL Framework" style="max-width: 95%; height: auto;">
+    <img src="STCCL_NED.png" alt="STCCL Framework" style="max-width: 95%; height: auto; display: block; margin: auto;">
     <div class="caption">
       An overall pipeline of incorporating the proposed STCCL algorithm to the current advanced NED method to supervise generating the intermediate 3DMM meshes and final rendered images. It computes visual correlation of corresponding and non-corresponding local regions between the source and generated images, followed by the correlation-aware adaptive strategy to obtain the final loss to supervise final image generation. An identical process is performed on the source and generated 3DMM meshes to supervise the intermediate 3DMM mesh generation.
     </div>
@@ -91,50 +101,65 @@
 
   <div class="section">
     <h2>STCCL Algorithm Overview</h2>
-    <img src="STCCL.png" alt="STCCL" style="max-width: 95%; height: auto;">
+    <img src="STCCL.png" alt="STCCL" style="max-width: 95%; height: auto; display: block; margin: auto;">
     <div class="caption">
       <b>Left half:</b> An illustration of spatial-temporal coherent correlation metric learning based on visual disparity. It retrieves the corresponding adjacent local regions of the input and output images (sequence) as positive samples and the non-corresponding counterparts as negative samples. The process is performed in the feature maps to construct dense positive and negative samples to train the metric.
       <b>Right half:</b> Similar to the <b>Left half</b>, but based on correlation matrices.
     </div>
   </div>
 
-<div class="section">
-  <h2>Video Examples</h2>
+  <!-- VIDEO SECTION STARTS HERE -->
+  <div class="section">
+    <h2>Video Examples</h2>
 
-  <div class="video-row">
-    <div class="video-container"><video controls src="video_result_base_vd/M012_source_happy_037.mp4"></video></div>
-    <div class="video-container"><video controls src="video_result_base_vd/W015_source_happy_037.mp4"></video></div>
+    <!-- 1. Original / NED Results -->
+    <div class="subsection-title">SPFEM Results (Integrated into NED)</div>
+    
+    <div class="video-row">
+      <div class="video-container"><video controls src="video_result_base_vd/M012_source_happy_037.mp4"></video></div>
+      <div class="video-container"><video controls src="video_result_base_vd/W015_source_happy_037.mp4"></video></div>
+    </div>
+
+    <div class="video-row">
+      <div class="video-container"><video controls src="video_result_base_vd/W015_source_happy_039.mp4"></video></div>
+      <div class="video-container"><video controls src="video_result_base_vd/M003_source_sad_033.mp4"></video></div>
+    </div>
+
+    <!-- 2. EAT Results (New) -->
+    <!-- 假设你将第一张图的视频放在 video_result_EAT 文件夹中 -->
+    <div class="subsection-title">Integration with EAT (Transformer-based)</div>
+    <div class="caption" style="text-align: center;">STCCL significantly reduces lip blurriness and improves articulatory precision in EAT.</div>
+
+    <div class="video-row">
+      <div class="video-container"><video controls src="neutral_033_1.mp4"></video></div>
+      <div class="video-container"><video controls src="neutral_033_2.mp4"></video></div>
+    </div>
+    
+    <div class="video-row">
+      <div class="video-container"><video controls src="neutral_034_1.mp4"></video></div>
+      <div class="video-container"><video controls src="neutral_035_1.mp4"></video></div>
+    </div>
+
+    <!-- 3. DICE Results (New) -->
+    <!-- 假设你将第二张图的视频放在 video_result 文件夹中 -->
+    <div class="subsection-title">Integration with DICE (Diffusion-based)</div>
+    <div class="caption" style="text-align: center;">STCCL mitigates temporal jitter and structural instability in DICE.</div>
+
+    <div class="video-row">
+      <div class="video-container"><video controls src="video_result/neutral_033_1.mp4"></video></div>
+      <div class="video-container"><video controls src="video_result/neutral_033_2.mp4"></video></div>
+    </div>
+
+    <div class="video-row">
+      <div class="video-container"><video controls src="video_result/neutral_037_1.mp4"></video></div>
+      <div class="video-container"><video controls src="video_result/neutral_037_2.mp4"></video></div>
+    </div>
+
+    <!-- External Link -->
+    <p style="text-align: center; margin-top: 30px;">
+      For more video results, please visit: <a href="https://jianmanlincjx.github.io/STCCL_video_result/" target="_blank">https://jianmanlincjx.github.io/STCCL_video_result/</a>
+    </p>
   </div>
-
-  <div class="video-row">
-    <div class="video-container"><video controls src="video_result_base_vd/W015_source_happy_039.mp4"></video></div>
-    <div class="video-container"><video controls src="video_result_base_vd/M003_source_sad_033.mp4"></video></div>
-  </div>
-
-  <div class="video-row">
-    <div class="video-container"><video controls src="video_result_base_vd/W015_source_sad_028.mp4"></video></div>
-    <div class="video-container"><video controls src="video_result_base_vd/W015_source_sad_037.mp4"></video></div>
-  </div>
-
-  <div class="video-row">
-    <div class="video-container"><video controls src="video_result_base_vd/M012_source_angry_029.mp4"></video></div>
-    <div class="video-container"><video controls src="video_result_base_vd/M030_source_angry_037.mp4"></video></div>
-  </div>
-
-  <div class="video-row">
-    <div class="video-container"><video controls src="video_result_base_vd/M012_source_neutral_040.mp4"></video></div>
-    <div class="video-container"><video controls src="video_result_base_vd/M012_source_disgusted_028.mp4"></video></div>
-  </div>
-
-  <div class="video-row">
-    <div class="video-container"><video controls src="video_result_base_vd/M030_source_disgusted_030.mp4"></video></div>
-    <div class="video-container"><video controls src="video_result_base_vd/W015_source_sad_028.mp4"></video></div>
-  </div>
-
-  <p>For more video results, please visit: <a href="https://jianmanlincjx.github.io/STCCL_video_result/" target="_blank">https://jianmanlincjx.github.io/STCCL_video_result/</a></p>
-</div>
-
-
 
 </body>
 </html>
