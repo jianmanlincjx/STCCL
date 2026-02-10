@@ -1,4 +1,4 @@
-# Learning Spatial-Temporal Coherent Correlationsfor Speech-Preserving Facial Expression Manipulation
+# Learning Spatial-Temporal Coherent Correlations for Speech-Preserving Facial Expression Manipulation
 
 ## 🔗 Project Page
 
