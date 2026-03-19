@@ -4,27 +4,37 @@
   <meta charset="UTF-8">
   <title>Learning Spatial-Temporal Coherent Correlations for Speech-Preserving Facial Expression Manipulation</title>
   <style>
-    /* 全局样式优化 */
+    /* 全局重置与基础样式 */
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
-      max-width: 1100px;
-      margin: 0 auto; /* 页面水平居中 */
+      margin: 0;
       padding: 40px 20px;
       line-height: 1.6;
       color: #333;
       background-color: #fff;
       scroll-behavior: smooth;
-      text-align: center; /* 全局文本居中 */
     }
 
-    h1 { font-size: 2.2em; margin-bottom: 15px; color: #111; }
+    /* 核心修复：建立统一的居中容器，保证所有板块左右边缘完美对齐 */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    /* 标题与作者区 */
+    h1 {
+      font-size: 2.2em;
+      margin-bottom: 15px;
+      color: #111;
+      text-align: center;
+    }
     
     .authors {
       margin-bottom: 10px;
       font-size: 1.1em;
       color: #444;
+      text-align: center;
     }
-    
     .authors sup { font-size: 0.7em; }
     
     .author-notes {
@@ -32,10 +42,13 @@
       margin-top: 10px;
       font-size: 0.9em;
       color: #777;
+      text-align: center;
     }
 
+    /* 按钮区 */
     .buttons {
       margin: 30px 0;
+      text-align: center;
     }
     .buttons a {
       text-decoration: none;
@@ -53,39 +66,32 @@
       transform: translateY(-2px);
     }
 
+    /* 章节与文字区域 */
     .section {
       margin-top: 60px;
-      text-align: center;
     }
-
     .section h2 {
       font-size: 1.8em;
       border-bottom: 2px solid #eee;
-      display: inline-block;
       padding-bottom: 5px;
       margin-bottom: 25px;
+      text-align: center;
     }
-
     .abstract-text {
-      text-align: justify; /* 摘要正文保持两端对齐以便阅读 */
-      max-width: 950px;
-      margin: 0 auto;
+      text-align: justify;
       color: #555;
     }
 
-    /* 优化后的提示框 */
+    /* 针对审稿人的提示框 */
     .reviewer-note {
       background-color: #f6fdf8;
       border: 1px solid #d4edda;
       border-left: 8px solid #28a745;
       padding: 30px;
-      margin: 40px auto;
+      margin: 40px 0;
       border-radius: 8px;
-      text-align: left; /* 提示框内部文字左对齐，方便阅读列表 */
-      max-width: 1000px;
     }
     .reviewer-note h3 {
-      text-align: left;
       margin-top: 0;
       color: #28a745;
       font-size: 1.4em;
@@ -99,58 +105,58 @@
     .nav-box {
       margin-top: 25px;
       padding-top: 15px;
-      border-top: 1px dashed #ddd;
+      border-top: 1px dashed #ccc;
       text-align: center;
     }
     .nav-link {
       display: inline-block;
-      margin: 0 15px;
+      margin: 10px 15px 0 15px;
       color: #007bff;
       text-decoration: none;
       font-weight: bold;
     }
+    .nav-link:hover { text-decoration: underline; }
 
-    /* 视频版块标题 */
+    /* 视频版块二级标题与文字说明 */
     .subsection-title {
       font-size: 1.6em;
-      margin: 60px auto 15px auto;
+      margin: 60px 0 15px 0;
       padding: 12px;
-      background-color: #f1f4f8; /* 更淡雅的蓝色背景 */
+      background-color: #f1f4f8;
       color: #2c3e50;
       font-weight: bold;
-      max-width: 1000px;
+      text-align: center;
       border-radius: 4px;
     }
-
-    /* 视频下方的Caption：居中并加大宽度 */
     .caption-center {
       font-size: 1.1em;
-      color: #d9534f; /* 突出显示改进点 */
-      margin: 0 auto 30px auto;
-      max-width: 1000px;
+      color: #d9534f;
+      margin: 0 0 30px 0;
       font-weight: 500;
+      text-align: center;
     }
 
-    /* 视频容器 */
+    /* 修复视频右侧留白：强制占满 1000px 宽度 */
     .video-row {
-      margin: 0 auto 50px auto;
-      max-width: 1000px;
-    }
-    
-    .video-container video {
       width: 100%;
+      margin-bottom: 40px;
+      display: block;
+    }
+    .video-row video {
+      width: 100%; /* 强制拉伸视频填满父容器 */
       height: auto;
       border: 1px solid #eee;
       border-radius: 8px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15); /* 增加阴影体现质感 */
+      background-color: #000; /* 未加载完全时显示黑色背景 */
+      display: block;
     }
 
     /* 图片样式 */
     .method-img {
-      max-width: 1000px;
       width: 100%;
       height: auto;
-      margin: 20px auto;
+      margin: 20px 0;
       border-radius: 8px;
     }
 
@@ -160,10 +166,14 @@
       color: #aaa;
       font-size: 0.9em;
       border-top: 1px solid #eee;
+      text-align: center;
     }
   </style>
 </head>
 <body>
+
+<!-- 所有内容包裹在 container 中，实现严格的边缘对齐 -->
+<div class="container">
 
   <h1>Learning Spatial-Temporal Coherent Correlations for Speech-Preserving Facial Expression Manipulation</h1>
 
@@ -190,22 +200,22 @@
   <div class="section">
     <h2>Abstract</h2>
     <p class="abstract-text">
-      Speech-preserving facial expression manipulation (SPFEM) aims to modify facial emotions while meticulously maintaining the mouth animation associated with spoken content... (摘要内容) ... results demonstrate the effectiveness of the proposed STCCL algorithm.
+      Speech-preserving facial expression manipulation (SPFEM) aims to modify facial emotions while meticulously maintaining the mouth animation associated with spoken content. Current works depend on inaccessible paired training samples for the person, where two aligned frames exhibit the same speech content yet differ in emotional expression, limiting the SPFEM applications in real-world scenarios. In this work, we discover that speakers who convey the same content with different emotions exhibit highly correlated local facial animations in both spatial and temporal spaces, providing valuable supervision for SPFEM. To capitalize on this insight, we propose a novel spatial-temporal coherent correlation learning (STCCL) algorithm, which models the aforementioned correlations as explicit metrics and integrates the metrics to supervise manipulating facial expression and meanwhile better preserving the facial animation of spoken contents. To this end, it first learns a spatial coherent correlation metric, ensuring that the visual correlations of adjacent local regions within an image linked to a specific emotion closely resemble those of corresponding regions in an image linked to a different emotion. Simultaneously, it develops a temporal coherent correlation metric, ensuring that the visual correlations of specific regions across adjacent image frames associated with one emotion are similar to those in the corresponding regions of frames associated with another emotion. Recognizing that visual correlations are not uniform across all regions, we have also crafted a correlation-aware adaptive strategy that prioritizes regions that present greater challenges. During SPFEM model training, we construct the spatial-temporal coherent correlation metric between corresponding local regions of the input and output image frames as addition loss to supervise the generation process. We conduct extensive experiments on variant datasets, and the results demonstrate the effectiveness of the proposed STCCL algorithm.
     </p>
   </div>
 
   <div class="section">
     <h2>Integrate STCCL into NED</h2>
     <img src="STCCL_NED.png" alt="STCCL Framework" class="method-img">
-    <p class="abstract-text" style="text-align: center; font-size: 0.9em;">
-      Overall pipeline of incorporating STCCL into the advanced NED method.
+    <p class="abstract-text" style="text-align: center; font-size: 0.9em; margin-top: 15px;">
+      An overall pipeline of incorporating the proposed STCCL algorithm to the current advanced NED method to supervise generating the intermediate 3DMM meshes and final rendered images.
     </p>
   </div>
 
   <div class="section">
     <h2>Video Examples</h2>
 
-    <!-- 针对审稿人的提示框：居中容器，内部列表对齐 -->
+    <!-- 针对审稿人的说明框 -->
     <div class="reviewer-note">
       <h3>💡 Note on Side-by-Side Comparisons</h3>
       <p>The proposed STCCL is an architecture-agnostic supervisory module designed to enhance existing Speech-Preserving Facial Expression Manipulation (SPFEM) backbones. To demonstrate its effectiveness as a "plug-and-play" enhancement, we provide <b>direct side-by-side comparisons</b> below. Each video follows this 4-column layout:</p>
@@ -217,11 +227,12 @@
       </ul>
       <p>Observe that STCCL <span class="highlight-red">effectively preserves fine-grained articulatory details (mouth shape)</span> from the Source while maintaining the target emotional expressions, surpassing the original SOTA baselines.</p>
       
+      <!-- 快捷跳转菜单 -->
       <div class="nav-box">
         <b>Quick Jump to Results:</b><br>
-        <a href="#eat-results" class="nav-link">1. Integration with EAT</a>
-        <a href="#dice-results" class="nav-link">2. Integration with DICE</a>
-        <a href="#ned-results" class="nav-link">3. Results on NED</a>
+        <a href="#eat-results" class="nav-link">1. Integration with EAT (Transformer-based)</a>
+        <a href="#dice-results" class="nav-link">2. Integration with DICE (Diffusion-based)</a>
+        <a href="#ned-results" class="nav-link">3. SPFEM Results (Integrated into NED)</a>
       </div>
     </div>
 
@@ -231,7 +242,14 @@
 
     <div class="video-row"><video controls loop muted src="neutral_033_1.mp4"></video></div>
     <div class="video-row"><video controls loop muted src="neutral_033_2.mp4"></video></div>
-    <!-- (此处继续添加其他视频) -->
+    <div class="video-row"><video controls loop muted src="neutral_034_1.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="neutral_035_1.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="neutral_035_2.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="neutral_036_1.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="neutral_038_1.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="neutral_040_1.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="neutral_040_2.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="neutral_040_3.mp4"></video></div>
 
     <!-- 2. DICE Results -->
     <div id="dice-results" class="subsection-title">2. Integration with DICE (Diffusion-based)</div>
@@ -239,19 +257,37 @@
 
     <div class="video-row"><video controls loop muted src="video_result/neutral_033_1.mp4"></video></div>
     <div class="video-row"><video controls loop muted src="video_result/neutral_033_2.mp4"></video></div>
-
+    <div class="video-row"><video controls loop muted src="video_result/neutral_035_1.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="video_result/neutral_037_1.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="video_result/neutral_037_2.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="video_result/neutral_037_3.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="video_result/neutral_038_1.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="video_result/neutral_040_1.mp4"></video></div>
+    
     <!-- 3. NED Results -->
     <div id="ned-results" class="subsection-title">3. SPFEM Results (Integrated into NED)</div>
     <div class="caption-center">Incorporating STCCL can better manipulate expressions while preserving original mouth shapes.</div>
     
     <div class="video-row"><video controls loop muted src="video_result_base_vd/M012_source_happy_037.mp4"></video></div>
     <div class="video-row"><video controls loop muted src="video_result_base_vd/W015_source_happy_037.mp4"></video></div>
-    
-  </div>
+    <div class="video-row"><video controls loop muted src="video_result_base_vd/W015_source_happy_039.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="video_result_base_vd/M003_source_sad_033.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="video_result_base_vd/W015_source_sad_028.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="video_result_base_vd/W015_source_sad_037.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="video_result_base_vd/M012_source_angry_029.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="video_result_base_vd/M030_source_angry_037.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="video_result_base_vd/M012_source_neutral_040.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="video_result_base_vd/M012_source_disgusted_028.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="video_result_base_vd/M030_source_disgusted_030.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="video_result_base_vd/W015_source_sad_028.mp4"></video></div>
 
-  <footer>
-    &copy; 2024 STCCL Project Team. All rights reserved.
-  </footer>
+  </div> <!-- End of section -->
+
+</div> <!-- End of container -->
+
+<footer>
+  &copy; 2025 STCCL Project Team. All rights reserved.
+</footer>
 
 </body>
 </html>
