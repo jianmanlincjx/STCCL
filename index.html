@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Learning Spatial-Temporal Coherent Correlations for Speech-Preserving Facial Expression Manipulation</title>
-  <style>
-    /* 全局重置与基础样式 */
+<style>
+    /* 1. 全局重置与基础样式 */
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
       margin: 0;
@@ -15,13 +15,13 @@
       scroll-behavior: smooth;
     }
 
-    /* 核心修复：建立统一的居中容器，保证所有板块左右边缘完美对齐 */
+    /* 2. 核心容器：保证所有板块左右边缘完美对齐 */
     .container {
       max-width: 1000px;
       margin: 0 auto;
     }
 
-    /* 标题与作者区 */
+    /* 3. 标题与作者区 */
     h1 {
       font-size: 2.2em;
       margin-bottom: 15px;
@@ -45,7 +45,7 @@
       text-align: center;
     }
 
-    /* 按钮区 */
+    /* 4. 按钮区 */
     .buttons {
       margin: 30px 0;
       text-align: center;
@@ -66,23 +66,44 @@
       transform: translateY(-2px);
     }
 
-    /* 章节与文字区域 */
+    /* 5. 章节标题 */
     .section {
-      margin-top: 60px;
+      margin-top: 50px; /* 紧凑版块间距 */
     }
     .section h2 {
       font-size: 1.8em;
       border-bottom: 2px solid #eee;
       padding-bottom: 5px;
-      margin-bottom: 25px;
+      margin-bottom: 20px; /* 紧凑标题间距 */
       text-align: center;
     }
+
+    /* 6. 算法版块专用：大字体、灰色背景图注框 */
+    .figure-caption {
+      max-width: 1000px;
+      margin: 10px auto 30px auto;
+      padding: 15px 20px;
+      background-color: #f9f9f9; /* 浅灰背景提升专业感 */
+      border-radius: 5px;
+      border: 1px solid #eee;
+      text-align: justify;
+      font-size: 1.1rem; /* 字体加大 */
+      line-height: 1.6;
+      color: #333;
+    }
+    
+    .desc-item {
+      margin-bottom: 12px;
+      display: block;
+    }
+
     .abstract-text {
       text-align: justify;
       color: #555;
+      font-size: 1.05rem;
     }
 
-    /* 针对审稿人的提示框 */
+    /* 7. 针对审稿人的提示框 */
     .reviewer-note {
       background-color: #f6fdf8;
       border: 1px solid #d4edda;
@@ -95,13 +116,14 @@
       margin-top: 0;
       color: #28a745;
       font-size: 1.4em;
+      text-align: left;
     }
     .highlight-red {
       color: #d9534f;
       font-weight: bold;
     }
 
-    /* 快捷导航 */
+    /* 8. 快捷导航 */
     .nav-box {
       margin-top: 25px;
       padding-top: 15px;
@@ -117,7 +139,7 @@
     }
     .nav-link:hover { text-decoration: underline; }
 
-    /* 视频版块二级标题与文字说明 */
+    /* 9. 视频版块样式 */
     .subsection-title {
       font-size: 1.6em;
       margin: 60px 0 15px 0;
@@ -129,35 +151,35 @@
       border-radius: 4px;
     }
     .caption-center {
-      font-size: 1.1em;
+      font-size: 1.1rem;
       color: #d9534f;
       margin: 0 0 30px 0;
       font-weight: 500;
       text-align: center;
     }
 
-    /* 修复视频右侧留白：强制占满 1000px 宽度 */
+    /* 10. 媒体元素：强制占满 1000px 宽度，消除留白 */
     .video-row {
       width: 100%;
       margin-bottom: 40px;
       display: block;
     }
     .video-row video {
-      width: 100%; /* 强制拉伸视频填满父容器 */
+      width: 100%; 
       height: auto;
       border: 1px solid #eee;
       border-radius: 8px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.15); /* 增加阴影体现质感 */
-      background-color: #000; /* 未加载完全时显示黑色背景 */
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      background-color: #000;
       display: block;
     }
 
-    /* 图片样式 */
     .method-img {
       width: 100%;
       height: auto;
-      margin: 20px 0;
+      margin: 20px 0 0 0; /* 底部间距由 figure-caption 接管 */
       border-radius: 8px;
+      display: block;
     }
 
     footer {
@@ -204,33 +226,37 @@
     </p>
   </div>
 
-  <div class="section">
-    <h2>STCCL Overview</h2>
-    <img src="STCCL_overview.png" alt="STCCL Framework" class="method-img">
-    <p class="abstract-text" style="text-align: justify; font-size: 0.95em; color: #555; margin-top: 15px;">
-      <b>Overview of the proposed Spatial-Temporal Coherent Correlation Learning (STCCL) framework.</b><br><br>
-      <b>(a) Inherent Correlation Discovery:</b> We uncover a fundamental observation that a single speaker articulating identical speech content across varied emotional states exhibits highly correlated local facial animations in both spatial and temporal dimensions.<br><br>
-      <b>(b) STCCL Metric Learning:</b> Leveraging limited paired training data, we explicitly model these intrinsic associations by training a Spatial Coherent Correlation (SCC) metric and a Temporal Coherent Correlation (TCC) metric, which significantly amplifies the discriminability of latent correlations.<br><br>
-      <b>(c) Plug-and-Play Supervision:</b> The learned STCCL serves as an architecture-agnostic auxiliary supervision (<i>&#8466;<sub>stccl</sub></i>) for mainstream SPFEM models. By enforcing source-consistent spatial-temporal constraints between the source input and generated output, it ensures high-fidelity speech preservation amidst vivid emotional manipulation.
-    </p>
+<!-- 1. STCCL Overview -->
+<div class="section">
+  <h2>STCCL Overview</h2>
+  <img src="STCCL_overview.png" alt="STCCL Framework" class="method-img">
+  <div class="figure-caption">
+    <b style="font-size: 1.15rem; display: block; margin-bottom: 8px;">Overview of the proposed Spatial-Temporal Coherent Correlation Learning (STCCL) framework.</b>
+    <span class="desc-item"><b>(a) Inherent Correlation Discovery:</b> We uncover a fundamental observation that a single speaker articulating identical speech content across varied emotional states exhibits highly correlated local facial animations in both spatial and temporal dimensions.</span>
+    <span class="desc-item"><b>(b) STCCL Metric Learning:</b> Leveraging limited paired training data, we explicitly model these intrinsic associations by training a Spatial Coherent Correlation (SCC) metric and a Temporal Coherent Correlation (TCC) metric, which significantly amplifies the discriminability of latent correlations.</span>
+    <span class="desc-item"><b>(c) Plug-and-Play Supervision:</b> The learned STCCL serves as an architecture-agnostic auxiliary supervision (<i>&#8466;<sub>stccl</sub></i>) for mainstream SPFEM models. By enforcing source-consistent spatial-temporal constraints between the source input and generated output, it ensures high-fidelity speech preservation amidst vivid emotional manipulation.</span>
   </div>
-  
-  <div class="section">
-    <h2>Integrate STCCL into NED</h2>
-    <img src="STCCL_NED.png" alt="STCCL Framework" class="method-img">
-    <p class="abstract-text" style="text-align: center; font-size: 0.9em; margin-top: 15px;">
-      An overall pipeline of incorporating the proposed STCCL algorithm to the current advanced NED method to supervise generating the intermediate 3DMM meshes and final rendered images.
-    </p>
-  </div>
+</div>
 
-  <div class="section">
-    <h2>STCCL Algorithm Overview</h2>
-    <img src="STCCL.png" alt="STCCL" style="max-width: 95%; height: auto; display: block; margin: auto;">
-    <div class="caption">
-      <b>Left half:</b> An illustration of spatial-temporal coherent correlation metric learning based on visual disparity. It retrieves the corresponding adjacent local regions of the input and output images (sequence) as positive samples and the non-corresponding counterparts as negative samples. The process is performed in the feature maps to construct dense positive and negative samples to train the metric.
-      <b>Right half:</b> Similar to the <b>Left half</b>, but based on correlation matrices.
-    </div>
+<!-- 2. Integrate STCCL into NED -->
+<div class="section">
+  <h2>Integrate STCCL into NED</h2>
+  <img src="STCCL_NED.png" alt="STCCL Framework" class="method-img">
+  <div class="figure-caption" style="text-align: center;">
+    <b>An overall pipeline of incorporating STCCL into the advanced NED method</b> to supervise generating the intermediate 3DMM meshes and final rendered images.
   </div>
+</div>
+
+<!-- 3. STCCL Algorithm Overview -->
+<div class="section">
+  <h2>STCCL Algorithm Overview</h2>
+  <img src="STCCL.png" alt="STCCL" class="method-img">
+  <div class="figure-caption">
+    <b>Detailed illustration of the STCCL algorithm.</b><br>
+    <b>Left half:</b> Illustration of spatial-temporal coherent correlation metric learning based on <b>Visual Disparity</b>. It constructs dense positive and negative samples in the feature space to train the metric for fine-grained alignment.<br>
+    <b>Right half:</b> The algorithmic variant based on <b>Correlation Matrices</b>, capturing holistic structural dependencies via matrix multiplication to model complex facial dynamics.
+  </div>
+</div>
   
   <div class="section">
     <h2>Video Examples</h2>
