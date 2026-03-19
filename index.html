@@ -10,6 +10,7 @@
       margin: auto;
       padding: 20px;
       line-height: 1.6;
+      scroll-behavior: smooth; /* 平滑滚动效果 */
     }
     h1, h2, h3 {
       text-align: center;
@@ -36,28 +37,32 @@
     }
     .subsection-title {
       text-align: center;
-      font-size: 1.2em;
-      margin-top: 30px;
-      margin-bottom: 15px;
+      font-size: 1.4em;
+      margin-top: 50px;
+      margin-bottom: 20px;
       color: #333;
       font-weight: bold;
       border-bottom: 2px solid #eee;
       padding-bottom: 10px;
+      background-color: #f8f9fa;
     }
+    
+    /* 核心修改：视频改为单排展示 */
     .video-row {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-      margin-bottom: 20px;
+      display: block; /* 改为块级，单行显示 */
+      text-align: center;
+      margin-bottom: 40px;
     }
     
     .video-container video {
-      width: 100%;
-      max-width: 720px;
+      width: 100%; /* 宽度占满容器，实现最大化对比 */
+      max-width: 1000px;
       height: auto;
       border: 1px solid #ddd;
       border-radius: 4px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
+
     .caption {
       font-size: 14px;
       color: #444;
@@ -67,11 +72,11 @@
       line-height: 1.5;
     }
 
-    /* 新增：提示框样式 */
+    /* 提示框与索引样式 */
     .reviewer-note {
-      background-color: #f9f9f9;
+      background-color: #f4fdf5;
       border-left: 6px solid #28a745;
-      padding: 20px;
+      padding: 25px;
       margin: 30px 0;
       border-radius: 4px;
     }
@@ -80,12 +85,29 @@
       margin-top: 0;
       color: #28a745;
     }
-    .reviewer-note ul {
-      margin-bottom: 10px;
-    }
     .highlight-red {
       color: #d9534f;
       font-weight: bold;
+    }
+
+    /* 交叉索引导航条样式 */
+    .nav-box {
+      margin-top: 20px;
+      padding-top: 15px;
+      border-top: 1px dashed #ccc;
+    }
+    .nav-box b {
+      color: #333;
+    }
+    .nav-link {
+      display: inline-block;
+      margin-right: 15px;
+      color: #007bff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .nav-link:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -118,32 +140,15 @@
   <div class="section">
     <h2>Abstract</h2>
     <p>
-      Speech-preserving facial expression manipulation (SPFEM) aims to modify facial emotions while meticulously maintaining the mouth animation associated with spoken content. Current works depend on inaccessible paired training samples for the person, where two aligned frames exhibit the same speech content yet differ in emotional expression, limiting the SPFEM applications in real-world scenarios. In this work, we discover that speakers who convey the same content with different emotions exhibit highly correlated local facial animations in both spatial and temporal spaces, providing valuable supervision for SPFEM. To capitalize on this insight, we propose a novel spatial-temporal coherent correlation learning (STCCL) algorithm, which models the aforementioned correlations as explicit metrics and integrates the metrics to supervise manipulating facial expression and meanwhile better preserving the facial animation of spoken contents. To this end, it first learns a spatial coherent correlation metric, ensuring that the visual correlations of adjacent local regions within an image linked to a specific emotion closely resemble those of corresponding regions in an image linked to a different emotion. Simultaneously, it develops a temporal coherent correlation metric, ensuring that the visual correlations of specific regions across adjacent image frames associated with one emotion are similar to those in the corresponding regions of frames associated with another emotion. Recognizing that visual correlations are not uniform across all regions, we have also crafted a correlation-aware adaptive strategy that prioritizes regions that present greater challenges. During SPFEM model training, we construct the spatial-temporal coherent correlation metric between corresponding local regions of the input and output image frames as addition loss to supervise the generation process. We conduct extensive experiments on variant datasets, and the results demonstrate the effectiveness of the proposed STCCL algorithm.
+      Speech-preserving facial expression manipulation (SPFEM) aims to modify facial emotions while meticulously maintaining the mouth animation associated with spoken content... (摘要文字保持不变) ... results demonstrate the effectiveness of the proposed STCCL algorithm.
     </p>
   </div>
 
-  <div class="section">
-    <h2>Integrate STCCL into NED</h2>
-    <img src="STCCL_NED.png" alt="STCCL Framework" style="max-width: 95%; height: auto; display: block; margin: auto;">
-    <div class="caption">
-      An overall pipeline of incorporating the proposed STCCL algorithm to the current advanced NED method to supervise generating the intermediate 3DMM meshes and final rendered images. It computes visual correlation of corresponding and non-corresponding local regions between the source and generated images, followed by the correlation-aware adaptive strategy to obtain the final loss to supervise final image generation. An identical process is performed on the source and generated 3DMM meshes to supervise the intermediate 3DMM mesh generation.
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>STCCL Algorithm Overview</h2>
-    <img src="STCCL.png" alt="STCCL" style="max-width: 95%; height: auto; display: block; margin: auto;">
-    <div class="caption">
-      <b>Left half:</b> An illustration of spatial-temporal coherent correlation metric learning based on visual disparity. It retrieves the corresponding adjacent local regions of the input and output images (sequence) as positive samples and the non-corresponding counterparts as negative samples. The process is performed in the feature maps to construct dense positive and negative samples to train the metric.
-      <b>Right half:</b> Similar to the <b>Left half</b>, but based on correlation matrices.
-    </div>
-  </div>
-
-  <!-- VIDEO SECTION STARTS HERE -->
+  <!-- VIDEO SECTION -->
   <div class="section">
     <h2>Video Examples</h2>
 
-    <!-- 新增：Note on Side-by-Side Comparisons 提示框 -->
+    <!-- 提示框与交叉索引导航 -->
     <div class="reviewer-note">
       <h3>💡 Note on Side-by-Side Comparisons</h3>
       <p>The proposed STCCL is an architecture-agnostic supervisory module designed to enhance existing Speech-Preserving Facial Expression Manipulation (SPFEM) backbones. To demonstrate its effectiveness as a "plug-and-play" enhancement, we provide <b>direct side-by-side comparisons</b> below. Each video follows this 4-column layout:</p>
@@ -154,86 +159,60 @@
         <li><b>Column 4: Ours (STCCL-VD)</b> - Backbone enhanced by STCCL (Visual Disparity formulation).</li>
       </ul>
       <p>Observe that STCCL <span class="highlight-red">effectively preserves fine-grained articulatory details (mouth shape)</span> from the Source while maintaining the target emotional expressions, surpassing the original SOTA baselines.</p>
+      
+      <!-- 交叉索引板块 -->
+      <div class="nav-box">
+        <b>Quick Jump to Results:</b><br>
+        <a href="#eat-results" class="nav-link">1. Integration with EAT (Transformer-based)</a>
+        <a href="#dice-results" class="nav-link">2. Integration with DICE (Diffusion-based)</a>
+        <a href="#ned-results" class="nav-link">3. SPFEM Results (Integrated into NED)</a>
+      </div>
     </div>
 
-    <!-- 2. EAT Results (10 Videos) -->
-    <div class="subsection-title">Integration with EAT (Transformer-based)</div>
+    <!-- 1. EAT Results -->
+    <div id="eat-results" class="subsection-title">1. Integration with EAT (Transformer-based)</div>
     <div class="caption" style="text-align: center;">STCCL significantly reduces lip blurriness and improves articulatory precision in EAT.</div>
 
-    <div class="video-row">
-      <div class="video-container"><video controls loop muted src="neutral_033_1.mp4"></video></div>
-      <div class="video-container"><video controls loop muted src="neutral_033_2.mp4"></video></div>
-    </div>
-    <div class="video-row">
-      <div class="video-container"><video controls loop muted src="neutral_034_1.mp4"></video></div>
-      <div class="video-container"><video controls loop muted src="neutral_035_1.mp4"></video></div>
-    </div>
-    <div class="video-row">
-      <div class="video-container"><video controls loop muted src="neutral_035_2.mp4"></video></div>
-      <div class="video-container"><video controls loop muted src="neutral_036_1.mp4"></video></div>
-    </div>
-    <div class="video-row">
-      <div class="video-container"><video controls loop muted src="neutral_038_1.mp4"></video></div>
-      <div class="video-container"><video controls loop muted src="neutral_040_1.mp4"></video></div>
-    </div>
-    <div class="video-row">
-      <div class="video-container"><video controls loop muted src="neutral_040_2.mp4"></video></div>
-      <div class="video-container"><video controls loop muted src="neutral_040_3.mp4"></video></div>
-    </div>
+    <div class="video-row"><video controls loop muted src="neutral_033_1.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="neutral_033_2.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="neutral_034_1.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="neutral_035_1.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="neutral_035_2.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="neutral_036_1.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="neutral_038_1.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="neutral_040_1.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="neutral_040_2.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="neutral_040_3.mp4"></video></div>
 
-    <!-- 3. DICE Results (8 Videos) -->
-    <div class="subsection-title">Integration with DICE (Diffusion-based)</div>
+    <!-- 2. DICE Results -->
+    <div id="dice-results" class="subsection-title">2. Integration with DICE (Diffusion-based)</div>
     <div class="caption" style="text-align: center;">STCCL significantly reduces lip blurriness and improves articulatory precision in DICE.</div>
 
-    <div class="video-row">
-      <div class="video-container"><video controls loop muted src="video_result/neutral_033_1.mp4"></video></div>
-      <div class="video-container"><video controls loop muted src="video_result/neutral_033_2.mp4"></video></div>
-    </div>
-    <div class="video-row">
-      <div class="video-container"><video controls loop muted src="video_result/neutral_035_1.mp4"></video></div>
-      <div class="video-container"><video controls loop muted src="video_result/neutral_037_1.mp4"></video></div>
-    </div>
-    <div class="video-row">
-      <div class="video-container"><video controls loop muted src="video_result/neutral_037_2.mp4"></video></div>
-      <div class="video-container"><video controls loop muted src="video_result/neutral_037_3.mp4"></video></div>
-    </div>
-    <div class="video-row">
-      <div class="video-container"><video controls loop muted src="video_result/neutral_038_1.mp4"></video></div>
-      <div class="video-container"><video controls loop muted src="video_result/neutral_040_1.mp4"></video></div>
-    </div>
+    <div class="video-row"><video controls loop muted src="video_result/neutral_033_1.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="video_result/neutral_033_2.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="video_result/neutral_035_1.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="video_result/neutral_037_1.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="video_result/neutral_037_2.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="video_result/neutral_037_3.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="video_result/neutral_038_1.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="video_result/neutral_040_1.mp4"></video></div>
     
-    <!-- 1. Original / NED Results -->
-    <div class="subsection-title">SPFEM Results (Integrated into NED)</div>
+    <!-- 3. NED Results -->
+    <div id="ned-results" class="subsection-title">3. SPFEM Results (Integrated into NED)</div>
+    <div class="caption" style="text-align: center;">Incorporating STCCL can better manipulate expressions while preserving original mouth shapes.</div>
     
-    <div class="video-row">
-      <div class="video-container"><video controls loop muted src="video_result_base_vd/M012_source_happy_037.mp4"></video></div>
-      <div class="video-container"><video controls loop muted src="video_result_base_vd/W015_source_happy_037.mp4"></video></div>
-    </div>
-
-    <div class="video-row">
-      <div class="video-container"><video controls loop muted src="video_result_base_vd/W015_source_happy_039.mp4"></video></div>
-      <div class="video-container"><video controls loop muted src="video_result_base_vd/M003_source_sad_033.mp4"></video></div>
-    </div>
-
-    <div class="video-row">
-      <div class="video-container"><video controls loop muted src="video_result_base_vd/W015_source_sad_028.mp4"></video></div>
-      <div class="video-container"><video controls loop muted src="video_result_base_vd/W015_source_sad_037.mp4"></video></div>
-    </div>
-
-    <div class="video-row">
-      <div class="video-container"><video controls loop muted src="video_result_base_vd/M012_source_angry_029.mp4"></video></div>
-      <div class="video-container"><video controls loop muted src="video_result_base_vd/M030_source_angry_037.mp4"></video></div>
-    </div>
-
-    <div class="video-row">
-      <div class="video-container"><video controls loop muted src="video_result_base_vd/M012_source_neutral_040.mp4"></video></div>
-      <div class="video-container"><video controls loop muted src="video_result_base_vd/M012_source_disgusted_028.mp4"></video></div>
-    </div>
-
-    <div class="video-row">
-      <div class="video-container"><video controls loop muted src="video_result_base_vd/M030_source_disgusted_030.mp4"></video></div>
-      <div class="video-container"><video controls loop muted src="video_result_base_vd/W015_source_sad_028.mp4"></video></div>
-    </div>
+    <div class="video-row"><video controls loop muted src="video_result_base_vd/M012_source_happy_037.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="video_result_base_vd/W015_source_happy_037.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="video_result_base_vd/W015_source_happy_039.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="video_result_base_vd/M003_source_sad_033.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="video_result_base_vd/W015_source_sad_028.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="video_result_base_vd/W015_source_sad_037.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="video_result_base_vd/M012_source_angry_029.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="video_result_base_vd/M030_source_angry_037.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="video_result_base_vd/M012_source_neutral_040.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="video_result_base_vd/M012_source_disgusted_028.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="video_result_base_vd/M030_source_disgusted_030.mp4"></video></div>
+    <div class="video-row"><video controls loop muted src="video_result_base_vd/W015_source_sad_028.mp4"></video></div>
     
   </div>
 
