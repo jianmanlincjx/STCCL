@@ -205,6 +205,17 @@
   </div>
 
   <div class="section">
+    <h2>STCCL Overview</h2>
+    <img src="STCCL_overview.png" alt="STCCL Framework" class="method-img">
+    <p class="abstract-text" style="text-align: justify; font-size: 0.95em; color: #555; margin-top: 15px;">
+      <b>Overview of the proposed Spatial-Temporal Coherent Correlation Learning (STCCL) framework.</b><br><br>
+      <b>(a) Inherent Correlation Discovery:</b> We uncover a fundamental observation that a single speaker articulating identical speech content across varied emotional states exhibits highly correlated local facial animations in both spatial and temporal dimensions.<br><br>
+      <b>(b) STCCL Metric Learning:</b> Leveraging limited paired training data, we explicitly model these intrinsic associations by training a Spatial Coherent Correlation (SCC) metric and a Temporal Coherent Correlation (TCC) metric, which significantly amplifies the discriminability of latent correlations.<br><br>
+      <b>(c) Plug-and-Play Supervision:</b> The learned STCCL serves as an architecture-agnostic auxiliary supervision (<i>&#8466;<sub>stccl</sub></i>) for mainstream SPFEM models. By enforcing source-consistent spatial-temporal constraints between the source input and generated output, it ensures high-fidelity speech preservation amidst vivid emotional manipulation.
+    </p>
+  </div>
+  
+  <div class="section">
     <h2>Integrate STCCL into NED</h2>
     <img src="STCCL_NED.png" alt="STCCL Framework" class="method-img">
     <p class="abstract-text" style="text-align: center; font-size: 0.9em; margin-top: 15px;">
@@ -212,6 +223,15 @@
     </p>
   </div>
 
+  <div class="section">
+    <h2>STCCL Algorithm Overview</h2>
+    <img src="STCCL.png" alt="STCCL" style="max-width: 95%; height: auto; display: block; margin: auto;">
+    <div class="caption">
+      <b>Left half:</b> An illustration of spatial-temporal coherent correlation metric learning based on visual disparity. It retrieves the corresponding adjacent local regions of the input and output images (sequence) as positive samples and the non-corresponding counterparts as negative samples. The process is performed in the feature maps to construct dense positive and negative samples to train the metric.
+      <b>Right half:</b> Similar to the <b>Left half</b>, but based on correlation matrices.
+    </div>
+  </div>
+  
   <div class="section">
     <h2>Video Examples</h2>
 
